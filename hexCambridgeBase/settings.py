@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'hexCambrdigeBase.urls'
+ROOT_URLCONF = 'hexCambridgeBase.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'hexCambrdigeBase.wsgi.application'
+WSGI_APPLICATION = 'hexCambridgeBase.wsgi.application'
 
 
 # Database
