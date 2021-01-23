@@ -1,18 +1,32 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
-import random
-import json
-
-
-# from .models import Company, Location, Product
+from django.urls import reverse
 
 
 # Create your views here.
+from home.forms import SearchForm
 from home.models import Company, Location
 
 
 def index(request):
-    pass
-    # return render(request, 'query.html', context)
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = SearchForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            keyword = form.cleaned_data['keyword']
+            location = form.cleaned_data['location']
+            # redirect to a new URL:
+            url = '/query/'+keyword+'-'+location
+            return HttpResponseRedirect(url)
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = SearchForm()
+
+    return render(request, 'index.html', {'form': form})
 
 
 def query(request, keyword, location):
