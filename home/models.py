@@ -7,6 +7,7 @@ from taggit.managers import TaggableManager
 
 # Create LOCATION model
 class Location(models.Model):
+    unique_id = models.CharField(max_length=50, primary_key=True)
     street = models.CharField(max_length=200, blank=True, null=True)
     number = models.IntegerField(blank=True, null=True)
     other = models.IntegerField(blank=True, null=True)
@@ -125,6 +126,7 @@ class CompanyManager(models.Manager):
         return dummy_nearest
 
 class Company(models.Model):
+    unique_id = models.CharField(max_length=50, primary_key=True)
     product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=200)

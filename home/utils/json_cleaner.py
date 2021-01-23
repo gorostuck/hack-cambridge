@@ -44,14 +44,13 @@ for j in clean:
         'fields': {
             'name': dummy_json['name'],
             'bio': None,
-            'tags': None,
         }
     }
     company_data.append(company)
 
     location = {
         'model': 'home.location',
-        'fk': dummy_json['place_id'],
+        'pk': dummy_json['place_id'] + '0',
         'fields': {
             'coord_x': dummy_json['location']['lat'],
             'coord_y': dummy_json['location']['lng']
