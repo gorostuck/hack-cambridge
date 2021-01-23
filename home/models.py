@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Create LOCATION model
 class Location(models.Model):
     street = models.CharField(max_length=200)
@@ -22,3 +21,10 @@ class Company(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     bio = models.TextField(max_length=1000)
+
+
+class CompanyManager(models.Manager):
+    def nearby(self, coords, limit):
+        # Returns the companies that are nearby to the given coordinates,
+        # with a limit on the number of companies returned
+        return None
