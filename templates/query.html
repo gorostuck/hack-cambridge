@@ -31,14 +31,16 @@
                     <div class="jumbotron">
                         <div class="row">
                             <div class="col-2 ">
-                                <img src="https://dummyimage.com/600x400" alt="..." class=" ratio img-fluid pad-left"></div>
+                                <img src="https://dummyimage.com/600x400" alt="..." class=" ratio img-fluid pad-left">
+                            </div>
                             <div class="col-6">
                                 <div class="card">
-                                    <div class="card-body">{{ company.bio }}</div>
+                                    <div class="card-body">{{ company.name }}</div>
                                 </div>
                             </div>
                             <div class="col-4">
-                                <div id="carouselExampleIndicators" class="carousel slide pad-right" data-mdb-ride="carousel">
+                                <div id="carouselExampleIndicators" class="carousel slide pad-right"
+                                     data-mdb-ride="carousel">
                                     <ol class="carousel-indicators">
                                         <li
                                                 data-mdb-target="#carouselExampleIndicators"
@@ -96,8 +98,8 @@
                     </div>
                     </div>
                 {% endfor %}
+            </div>
         </div>
-    </div>
     </div>
 
 {% endblock %}

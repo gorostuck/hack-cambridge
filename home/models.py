@@ -3,10 +3,9 @@ from geopy.geocoders import Nominatim
 from geopy import distance
 import numpy as np
 
+
 # Create LOCATION model
 class Location(models.Model):
-
-
     street = models.CharField(max_length=200, blank=True, null=True)
     number = models.IntegerField(blank=True, null=True)
     other = models.IntegerField(blank=True, null=True)
@@ -28,6 +27,9 @@ class Location(models.Model):
             self.get_coords()
             super(Location, self).save(*args, **kwargs)
 
+    def __str__(self):
+        return self.post_code
+
 
 # Create PRODUCT model
 class Product(models.Model):
@@ -36,11 +38,6 @@ class Product(models.Model):
 
 
 # Create COMPANY model
-class Company(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
-    name = models.CharField(max_length=200)
-    bio = models.TextField(max_length=1000)
 
 
 class CompanyManager(models.Manager):
@@ -104,9 +101,10 @@ class CompanyManager(models.Manager):
         # get all possible coordinates
         all_coords = []
         for company in Company.objects.all():
-            all_coords.append([company.coord_x, company.coord_y])
+            all_coords.append([company.location.coord_x, company.location.coord_y])
 
         # compute nearest n coordinates
+        print(coords)
         nearest = self.proximity_search(coords, all_coords)
 
         # get closest n
@@ -115,9 +113,24 @@ class CompanyManager(models.Manager):
         # iterate over nearest_limit and populate
         dummy_nearest = [None for i in range(limit)]
         for company in Company.objects.all():
-            coords = [company.coord_x, company.coord_y]
+            coords = [company.location.coord_x, company.location.coord_y]
+            for i, near_limit in enumerate(nearest_limit):
+                if coords == near_limit:
+                    dummy_nearest[i] = company
+                    '''
             index = np.array(np.where(coords == nearest_limit))
+            print(coords, nearest_limit)
             if index.size != 0:
                 dummy_nearest[index[0][0]] = company
-
+                '''
         return dummy_nearest
+
+class Company(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
+    name = models.CharField(max_length=200)
+    bio = models.TextField(max_length=1000)
+    objects = CompanyManager()
+
+    def __str__(self):
+        return self.name

@@ -26,7 +26,11 @@ def query(request, keyword, location):
     nearby = Company.objects.nearby(coords, limit=5)
     context['companies'] = nearby
     '''
-    context['companies'] = Company.objects.all()
+    user_loc = Location.objects.create(post_code=location)
+    context['companies'] = Company.objects.nearby(
+        coords=[user_loc.coord_x, user_loc.coord_y], limit=3)
+    #print(context['companies'])
+    user_loc.delete()
 
     return render(request, 'query.html', context)
 
