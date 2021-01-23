@@ -1,5 +1,7 @@
 from django.db import models
 from geopy.geocoders import Nominatim
+from geopy import distance
+import numpy as np
 
 # Create LOCATION model
 class Location(models.Model):
@@ -36,7 +38,80 @@ class Company(models.Model):
 
 
 class CompanyManager(models.Manager):
+
+    def proximity_search(self, loc, others):
+        """Input:
+           loc     = List with your coordinates [x,y]
+           others  = List with other coordinates. [[x1,y1],[x2,y2],...]
+
+           Return:
+           distances
+           ordered distances
+           shortest distance
+           index location of shortest distance in others
+           """
+
+        res = []
+
+        for i in range(len(others)):
+            others_i = tuple(others[i])
+
+            res.append(distance.distance(loc, others_i).miles)
+
+        # res is the distances
+        # quicksort res
+        def sort(array):
+            """Sort the array by using quicksort."""
+
+            less = []
+            equal = []
+            greater = []
+
+            if len(array) > 1:
+                pivot = array[0]
+                for x in array:
+                    if x < pivot:
+                        less.append(x)
+                    elif x == pivot:
+                        equal.append(x)
+                    elif x > pivot:
+                        greater.append(x)
+                # Don't forget to return something!
+                return sort(less) + equal + sort(greater)  # Just use the + operator to join lists
+            # Note that you want equal ^^^^^ not pivot
+            else:  # You need to handle the part at the end of the recursion - when you only have one element in your array, just return the array.
+                return array
+
+        ordered = sort(res)
+
+        # list of index locations of "ordered" objects in "res"
+        indices = [res.index(ordered[j]) for j in range(len(ordered))]
+
+        nearest = [others[i] for i in indices]
+
+        return nearest
+
     def nearby(self, coords, limit):
-        # Returns the companies that are nearby to the given coordinates,
-        # with a limit on the number of companies returned
-        return None
+        """
+        Returns the companies that are nearby to the given coordinates with a limit on the number of companies returned.
+        """
+        # get all possible coordinates
+        all_coords = []
+        for company in Company.objects.all():
+            all_coords.append([company.coord_x, company.coord_y])
+
+        # compute nearest n coordinates
+        nearest = self.proximity_search(coords, all_coords)
+
+        # get closest n
+        nearest_limit = nearest[:limit]
+
+        # iterate over nearest_limit and populate
+        dummy_nearest = [None for i in range(limit)]
+        for company in Company.objects.all():
+            coords = [company.coord_x, company.coord_y]
+            index = np.where(np.all(coords == nearest_limit))
+            if index is not None:
+                dummy_nearest[index] = company
+
+        return dummy_nearest
