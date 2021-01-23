@@ -3,7 +3,6 @@ import random
 import json
 
 
-
 # Create your views here.
 def index(request):
     names = ("bob", "dan", "jack", "lizzy", "susan")
@@ -20,8 +19,3 @@ def index(request):
     context["items"] = items
     context["items_json"] = json.dumps(items)
     return render(request, 'index.html', context)
-
-
-def alt_index(request):
-    return render(request, 'vuetify.html', {})
-
