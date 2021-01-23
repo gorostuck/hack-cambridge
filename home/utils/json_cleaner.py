@@ -34,7 +34,7 @@ for j in clean:
 
     location = {
         'model': 'home.location',
-        'unique_id': dummy_json['place_id'] + '0',
+        'pk': dummy_json['place_id'] + '0',
         'fields': {
             'coord_x': dummy_json['location']['lat'],
             'coord_y': dummy_json['location']['lng']
