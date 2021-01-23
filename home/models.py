@@ -7,6 +7,8 @@ class Location(models.Model):
     other = models.IntegerField()
     country = models.CharField(max_length=200)
     post_code = models.CharField(max_length=200)
+    coord_x = models.FloatField()
+    coord_y = models.FloatField()
 
 
 # Create PRODUCT model
