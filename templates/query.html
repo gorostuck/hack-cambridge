@@ -14,6 +14,18 @@
                     <div class="card-header">Search engine...</div>
                     <div class="card-body">Your keyword is {{ keyword }} and your location is {{ location }}</div>
                 </div>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                {% for company in companies %}
+                <div class="card">
+                    <div class="card-header">{{ comapny.name }}</div>
+                    <div class="card-body">{{ company.bio }}</div>
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>

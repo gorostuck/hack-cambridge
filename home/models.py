@@ -6,6 +6,12 @@ import numpy as np
 # Create LOCATION model
 class Location(models.Model):
 
+    def get_coords(post_code):
+        '''Returns coordenates from input address.'''
+        geolocator = Nominatim(user_agent="picapedro2@gmail.com")  # some email was required
+        location = geolocator.geocode(post_code)
+        return [location.latitude, location.longitude]
+
     street = models.CharField(max_length=200)
     number = models.IntegerField()
     other = models.IntegerField()
@@ -31,8 +37,8 @@ class Product(models.Model):
 
 # Create COMPANY model
 class Company(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=200)
     bio = models.TextField(max_length=1000)
 
