@@ -1,5 +1,5 @@
 from django.db import models
-from geopy import Nominatim
+from geopy.encoders import Nominatim
 
 
 class Location(models.Model):
