@@ -110,8 +110,8 @@ class CompanyManager(models.Manager):
         dummy_nearest = [None for i in range(limit)]
         for company in Company.objects.all():
             coords = [company.coord_x, company.coord_y]
-            index = np.where(np.all(coords == nearest_limit))
-            if index is not None:
-                dummy_nearest[index] = company
+            index = np.array(np.where(coords == nearest_limit))
+            if index.size != 0:
+                dummy_nearest[index[0][0]] = company
 
         return dummy_nearest
