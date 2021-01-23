@@ -1,14 +1,22 @@
 from django.db import models
+from geopy import Nominatim
 
-# Create LOCATION model
+
 class Location(models.Model):
+
+    def get_coords(post_code):
+        '''Returns coordenates from input address.'''
+        geolocator = Nominatim(user_agent="picapedro2@gmail.com")  # some email was required
+        location = geolocator.geocode(post_code)
+        return [location.latitude, location.longitude]
+
     street = models.CharField(max_length=200)
     number = models.IntegerField()
     other = models.IntegerField()
     country = models.CharField(max_length=200)
     post_code = models.CharField(max_length=200)
-    coord_x = models.FloatField()
-    coord_y = models.FloatField()
+    coord_x = get_coords(post_code)[0]
+    coord_y = get_coords(post_code)[1]
 
 
 # Create PRODUCT model
