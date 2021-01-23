@@ -18,22 +18,6 @@ for i, j in enumerate(clean):
         clean[i] = '{%s}' % j
 
 # parsing
-json_data = []
-for j in clean:
-    dummy_json = json.loads(j)
-    new_json = {
-        'model': 'home.company',
-        'pk': dummy_json['place_id'],
-        'fields': {
-            'name': dummy_json['name'],
-            'coord_x': dummy_json['location']['lat'],
-            'coord_y': dummy_json['location']['lng']
-        }
-    }
-    json_data.append(new_json)
-
-
-# parsing
 company_data, location_data = [], []
 for j in clean:
     dummy_json = json.loads(j)
@@ -50,7 +34,7 @@ for j in clean:
 
     location = {
         'model': 'home.location',
-        'pk': dummy_json['place_id'] + '0',
+        'unique_id': dummy_json['place_id'] + '0',
         'fields': {
             'coord_x': dummy_json['location']['lat'],
             'coord_y': dummy_json['location']['lng']
