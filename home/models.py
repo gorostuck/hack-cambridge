@@ -2,6 +2,7 @@ from django.db import models
 from geopy.geocoders import Nominatim
 from geopy import distance
 import numpy as np
+from taggit.managers import TaggableManager
 
 
 # Create LOCATION model
@@ -37,9 +38,7 @@ class Product(models.Model):
     image = models.ImageField()
 
 
-# Create COMPANY model
-
-
+# Manage Company Objects
 class CompanyManager(models.Manager):
 
     def proximity_search(self, loc, others):
