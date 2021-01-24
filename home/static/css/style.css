@@ -84,10 +84,10 @@ span{
 }
 
 #over {
-    height: 200px !important;
+    height: 400px !important;
     overflow-x: auto;
     overflow-y: hidden;
-    max-height: 60vh;
+    max-height: 400px;
     max-width: 100%;
     overflow: hidden;
 }

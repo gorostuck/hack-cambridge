@@ -2,6 +2,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
+from home.search_engine import get_sorted_scores
+
 # Create your views here.
 from home.forms import SearchForm
 from home.models import Company, Location, Type, Review
@@ -46,8 +48,16 @@ def query(request, keyword, location):
             if keyword in tags:
                 context['companies'].append(company)
     else:
-
         context['companies'] = nearby
+
+    # # compare keyword against all reviews and obtain ranking
+    # reviews = []
+    # for company in nearby:
+    #     x = Review.objects.filter(company__in=Company.objects.filter(unique_id__exact=company.pk)).values_list('company_id', 'content').values()
+    #     reviews.append(x)
+    #     print(x)
+    # sorted = get_sorted_scores(reviews, keyword)
+    # context['companies'] = sorted
 
     # if this is a POST request we need to process the form data
     if request.method == 'POST':
