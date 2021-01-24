@@ -130,7 +130,7 @@ class Company(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=200)
-    bio = models.TextField(max_length=1000)
+    bio = models.TextField(max_length=1000, blank=True, null=True)
     objects = CompanyManager()
 
     def __str__(self):
