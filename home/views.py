@@ -35,7 +35,7 @@ def query(request, keyword, location):
     context['location'] = location
     user_loc = Location.objects.create(post_code=location)
     context['companies'] = Company.objects.nearby(
-        coords=[user_loc.coord_x, user_loc.coord_y], limit=3)
+        coords=[user_loc.coord_x, user_loc.coord_y], limit=10)
     user_loc.delete()
 
     # if this is a POST request we need to process the form data

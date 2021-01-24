@@ -9,20 +9,9 @@
 
 {% block content %}
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 justify-content-center search-text">
-                <div class="card">
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        {{ form }}
-                        <input type="submit" value="Search">
-                    </form>
-                </div>
-            </div>
-        </div>
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h1 class="mt-5">Results for {{ keyword }} in {{ location }}:</h1>
+                <h1 class="mt-5">Results for <b>{{ keyword }}</b> in <b>{{ location }}</b>:</h1>
             </div>
         </div>
         <div class="row">

@@ -54,6 +54,7 @@ for j in clean:
             'location': dummy_json['place_id'] + '0',
             'product': None, #TODO: Assign FK for Product,
             'name': dummy_json['name'],
+            'location': dummy_json['place_id'] + '0',
             'bio': None,
             'underrep_tag': dummy_json['underrep_tag'],
             'photo_url': dummy_json['photoURL'],
@@ -79,6 +80,10 @@ for j in clean:
 models = ['company', 'location', 'review', 'type']
 data = [company_data, location_data, review_data, type_data]
 for model, d in zip(models, data):
+<<<<<<< HEAD
     dest_f = os.path.join(cwd, '../Fixtures/', str(model) + '.json')
+=======
+    dest_f = sys.argv[2] + str(model) + '.json'
+>>>>>>> f4bde95fb56f172c878a8cc4e0e724ae2c32c357
     with open(dest_f, 'w') as outfile:
         json.dump(d, outfile)
