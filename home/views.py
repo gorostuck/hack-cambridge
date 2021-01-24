@@ -4,7 +4,7 @@ from django.urls import reverse
 
 # Create your views here.
 from home.forms import SearchForm
-from home.models import Company, Location
+from home.models import Company, Location, Type, Review
 
 
 def index(request):
@@ -33,8 +33,10 @@ def query(request, keyword, location):
     context['keyword'] = keyword
     context['location'] = location
     user_loc = Location.objects.create(post_code=location)
-    context['companies'] = Company.objects.nearby(
+    nearby = Company.objects.nearby(
         coords=[user_loc.coord_x, user_loc.coord_y], limit=10)
+    context['companies'] = nearby
+
     user_loc.delete()
 
     # if this is a POST request we need to process the form data

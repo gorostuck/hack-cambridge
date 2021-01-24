@@ -35,7 +35,10 @@
                             </div>
                             <div class="col-6">
                                 <div class="card">
-                                    <a href='/landing/{{ company.unique_id}}/{{ keyword }}-{{ location }}' class="card-body">{{ company.name }}</a>
+                                    <a href='/landing/{{ company.unique_id}}/{{ keyword }}-{{ location }}' class="card-body">{{ company.name }} - {{  company.rating }} &#9733;</a>
+                                    <div class="card-body">{%  for tag in company.type_set.all %}
+                                        <span class="badge rounded-pill bg-primary">{{ tag.content }}</span>
+                                    {% endfor %}</div>
                                 </div>
                             </div>
                             <div class="col-4">
