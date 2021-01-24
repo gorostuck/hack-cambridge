@@ -34,10 +34,19 @@ def query(request, keyword, location):
     context['location'] = location
     user_loc = Location.objects.create(post_code=location)
     nearby = Company.objects.nearby(
-        coords=[user_loc.coord_x, user_loc.coord_y], limit=10)
-    context['companies'] = nearby
-
+        coords=[user_loc.coord_x, user_loc.coord_y], limit=50)
     user_loc.delete()
+    context['tag'] = False
+    context['total_tags'] = Type.objects.all_types()
+    if keyword in Type.objects.all_types():
+        context['tag'] = True
+        context['companies'] = []
+        for company in nearby:
+            tags = [item['content'] for item in company.type_set.all().values('content')]
+            if keyword in tags:
+                context['companies'].append(company)
+    else:
+        context['companies'] = nearby
 
     # if this is a POST request we need to process the form data
     if request.method == 'POST':

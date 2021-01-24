@@ -124,6 +124,7 @@ class CompanyManager(models.Manager):
                 '''
         return dummy_nearest
 
+
 class Company(models.Model):
     unique_id = models.CharField(max_length=50, primary_key=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
@@ -148,11 +149,19 @@ class Review(models.Model):
     content = models.TextField(max_length=2000, blank=True, null=True)
 
 
+class TypeManager(models.Manager):
+    def all_types(self):
+        # Returns all unique types available based on their content
+        return [item['content'] for item in Type.objects.all().values('content').distinct()]
+
+
 class Type(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
     content = models.CharField(max_length=200)
+    objects = TypeManager()
 
 
 class ReviewPhoto(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
     content = models.CharField(max_length=1000, blank=True, null=True)
+
