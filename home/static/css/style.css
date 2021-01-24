@@ -35,6 +35,8 @@ input {
 
 .wide:hover {
     border: 10px #0275d8 !important;
+}
+
 b {
     text-decoration: underline;
     text-decoration-style: dashed;
