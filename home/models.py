@@ -30,7 +30,7 @@ class Location(models.Model):
             super(Location, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.post_code
+        return self.post_code + ' ' + self.unique_id
 
 
 # Create PRODUCT model
