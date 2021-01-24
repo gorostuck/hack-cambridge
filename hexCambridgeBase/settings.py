@@ -39,8 +39,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'taggit',
-    'crispy_forms'
+    'crispy_forms',
+    'easy_maps'
 ]
+
+EASY_MAPS_GOOGLE_KEY = 'AIzaSyDTPV8hAAdXXYAELKvd-qlOSdcBFa-ELXM'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

@@ -25,3 +25,6 @@ input{
     padding: 10px 10px 10px 10px;
 }
 
+.wide:hover {
+    border: 10px #0275d8 !important;
+}

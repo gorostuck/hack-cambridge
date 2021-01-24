@@ -1,13 +1,12 @@
 from django.db import models
 from geopy.geocoders import Nominatim
 from geopy import distance
-import numpy as np
-from taggit.managers import TaggableManager
 
 
 # Create LOCATION model
 class Location(models.Model):
     unique_id = models.CharField(max_length=50, primary_key=True)
+    address = models.TextField(max_length=300, blank=True, null=True)
     street = models.CharField(max_length=200, blank=True, null=True)
     number = models.IntegerField(blank=True, null=True)
     other = models.IntegerField(blank=True, null=True)
@@ -127,7 +126,6 @@ class CompanyManager(models.Manager):
 
 class Company(models.Model):
     unique_id = models.CharField(max_length=50, primary_key=True)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, blank=True, null=True)
     location = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=200)
     bio = models.TextField(max_length=1000, blank=True, null=True)
@@ -136,6 +134,9 @@ class Company(models.Model):
     num_ratings = models.IntegerField(blank=True, null=True)
     rating = models.FloatField(blank=True, null=True)
     karma = models.FloatField(blank=True, null=True)
+    gmaps_url = models.CharField(max_length=1000, blank=True, null=True)
+    website_url = models.CharField(max_length=1000, blank=True, null=True)
+    phone = models.CharField(max_length=20, blank=True, null=True)
     objects = CompanyManager()
 
     def __str__(self):
@@ -150,3 +151,8 @@ class Review(models.Model):
 class Type(models.Model):
     company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
     content = models.CharField(max_length=200)
+
+
+class ReviewPhoto(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
+    content = models.CharField(max_length=1000, blank=True, null=True)
