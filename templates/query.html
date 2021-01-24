@@ -16,43 +16,58 @@
         </div>
         <div class="row">
             <div class="col-lg-2">
-                <div class="card">
-                    <div class="card-header">Using a tag: {{ tag }}</div>
-                    <div class="card-body">
-                        {% for tag in total_tags %}
-                            <a class="badge rounded-pill
-    {% if tag != keyword %}bg-primary{% else %}bg-secondary{% endif %}"
-                               href="/query/{{ tag }}-{{ location }}">
-                                {{ tag }}</a>
-                        {% endfor %}
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button
+                                    class="accordion-button bg-dark"
+                                    type="button"
+                                    data-mdb-toggle="collapse"
+                                    data-mdb-target="#collapseOne"
+                                    aria-expanded="true"
+                                    aria-controls="collapseOne"
+                            >
+                                <span>Explore tags</span></button>
+                        </h2>
+                        <div
+                                id="collapseOne"
+                                class="accordion-collapse collapse hide"
+                                aria-labelledby="headingOne"
+                                data-mdb-parent="#accordionExample"
+                        >
+                            <div class="accordion-body">
+                                {% for tag in total_tags %}
+                                    <a class="badge rounded-pill
+    {% if tag != keyword %}bg-light{% else %}bg-dark{% endif %}"
+                                       href="/query/{{ tag }}-{{ location }}">
+                                        {{ tag }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-header">Sort by</div>
-                    <div class="card-body">Bla bla bla</div>
-                </div>
             </div>
-            <div class="col-lg-10">
+            <div class="col-lg-10 dashes">
                 {% for company in companies %}
                     <div class="jumbotron">
                         <div class="row">
-                            <div class="col-2 ">
-                                <img src="https://dummyimage.com/600x400" alt="..."
+                            <div class="col-lg-2 ">
+                                <img src="{{ company.photo_url }}" alt="..."
                                      class=" ratio img-fluid pad-left">
                             </div>
-                            <div class="col-6">
+                            <div class="col-lg-6">
                                 <div class="card">
                                     <a href='/landing/{{ company.unique_id }}/{{ keyword }}-{{ location }}'
                                        class="card-body">{{ company.name }} - {{ company.rating }} &#9733;</a>
                                     <div class="card-body">{% for tag in company.type_set.all %}
                                         <a class="badge rounded-pill
-    {% if tag.content != keyword %}bg-primary{% else %}bg-secondary{% endif %}"
+    {% if tag.content != keyword %}bg-light{% else %}bg-dark{% endif %}"
                                            href="/query/{{ tag.content }}-{{ location }}">
                                             {{ tag.content }}</a>
                                     {% endfor %}</div>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-lg-4">
                                 <div id="carouselExampleIndicators" class="carousel slide pad-right"
                                      data-mdb-ride="carousel">
                                     <ol class="carousel-indicators">
