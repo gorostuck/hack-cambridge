@@ -46,6 +46,7 @@ def query(request, keyword, location):
             if keyword in tags:
                 context['companies'].append(company)
     else:
+
         context['companies'] = nearby
 
     # if this is a POST request we need to process the form data
