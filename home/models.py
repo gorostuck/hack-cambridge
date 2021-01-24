@@ -131,7 +131,22 @@ class Company(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE, blank=True, null=True)
     name = models.CharField(max_length=200)
     bio = models.TextField(max_length=1000, blank=True, null=True)
+    underrep_tag = models.CharField(max_length=200, blank=True, null=True)
+    photo_url = models.CharField(max_length=1000, blank=True, null=True)
+    num_ratings = models.IntegerField(blank=True, null=True)
+    rating = models.FloatField(blank=True, null=True)
+    karma = models.FloatField(blank=True, null=True)
     objects = CompanyManager()
 
     def __str__(self):
         return self.name
+
+
+class Review(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
+    content = models.TextField(max_length=2000, blank=True, null=True)
+
+
+class Type(models.Model):
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, blank=True, null=True)
+    content = models.CharField(max_length=200)
