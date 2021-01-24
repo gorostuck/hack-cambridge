@@ -1,9 +1,11 @@
 from django.contrib import admin
-from .models import Location, Company, Product
+from .models import Location, Company, Product, Review, Type
 
 # Register your models here.
 admin.site.register(Location)
 admin.site.register(Product)
+admin.site.register(Review)
+admin.site.register(Type)
 
 
 def update_location(modeladmin, request, queryset):
