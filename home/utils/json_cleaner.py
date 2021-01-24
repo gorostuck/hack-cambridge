@@ -27,6 +27,7 @@ for j in clean:
         'pk': dummy_json['place_id'],
         'fields': {
             'name': dummy_json['name'],
+            'location': dummy_json['place_id'] + '0',
             'bio': None,
         }
     }
@@ -47,5 +48,5 @@ models = ['company', 'location']
 data = [company_data, location_data]
 for model, d in zip(models, data):
     dest_f = sys.argv[2] + str(model) + '.json'
-    with open(dest_f, 'a') as outfile:
+    with open(dest_f, 'w') as outfile:
         json.dump(d, outfile)
