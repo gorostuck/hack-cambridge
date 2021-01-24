@@ -17,8 +17,15 @@
         <div class="row">
             <div class="col-lg-2">
                 <div class="card">
-                    <div class="card-header">Filter by</div>
-                    <div class="card-body">Bla bla bla</div>
+                    <div class="card-header">Using a tag: {{ tag }}</div>
+                    <div class="card-body">
+                        {% for tag in total_tags %}
+                            <a class="badge rounded-pill
+    {% if tag != keyword %}bg-primary{% else %}bg-secondary{% endif %}"
+                               href="/query/{{ tag }}-{{ location }}">
+                                {{ tag }}</a>
+                        {% endfor %}
+                    </div>
                 </div>
                 <div class="card">
                     <div class="card-header">Sort by</div>
@@ -35,9 +42,13 @@
                             </div>
                             <div class="col-6">
                                 <div class="card">
-                                    <a href='/landing/{{ company.unique_id}}/{{ keyword }}-{{ location }}' class="card-body">{{ company.name }} - {{  company.rating }} &#9733;</a>
-                                    <div class="card-body">{%  for tag in company.type_set.all %}
-                                        <span class="badge rounded-pill bg-primary">{{ tag.content }}</span>
+                                    <a href='/landing/{{ company.unique_id }}/{{ keyword }}-{{ location }}'
+                                       class="card-body">{{ company.name }} - {{ company.rating }} &#9733;</a>
+                                    <div class="card-body">{% for tag in company.type_set.all %}
+                                        <a class="badge rounded-pill
+    {% if tag.content != keyword %}bg-primary{% else %}bg-secondary{% endif %}"
+                                           href="/query/{{ tag.content }}-{{ location }}">
+                                            {{ tag.content }}</a>
                                     {% endfor %}</div>
                                 </div>
                             </div>
