@@ -38,6 +38,15 @@ input {
     border: 10px #0275d8 !important;
 }
 
+
+.wide {
+    display:flex;
+}
+
+.heading {
+    margin-top: 5vh;
+}
+
 b {
     text-decoration: underline;
     text-decoration-style: dashed;
@@ -72,4 +81,18 @@ span{
 .accordion-button:after {
     color:white;
 
+}
+
+#over {
+    height: 200px !important;
+    overflow-x: auto;
+    overflow-y: hidden;
+    max-height: 60vh;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.d-block {
+    max-height: 300px;
+    object-fit: cover;
 }
